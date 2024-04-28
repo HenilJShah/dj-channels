@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    hello ws counter
+    <h1 id="wsId">...</h1>
+
+    <script>
+      var ws = new WebSocket("ws://127.0.0.1:8000/ws/sc/");
+      //   ws.onopen = function (event) {
+      //     console.log("connecting---------------", event);
+      //     ws.send("hi world");
+      //   };
+      //   ws.onmessage = function (event) {
+      //     console.log("event=", event);
+      //   };
+      //   ws.onerror = function (event) {
+      //     console.log("err---------------", event);
+      //   };
+      //   ws.onclose = function (event) {
+      //     console.log("close---------------", event);
+      //   };
+
+      ws.addEventListener("open", (event) => {
+        console.log("connecting...", event);
+        ws.send("hi world");
+      });
+      ws.addEventListener("message", (event) => {
+        console.log("message...", event);
+        document.getElementById("wsId").innerText = event.data;
+      });
+      ws.addEventListener("close", (event) => {
+        console.log("close...", event);
+      });
+      ws.addEventListener("error", (event) => {
+        console.log("error...", event);
+        ws.send("hi world");
+      });
+    </script>
+  </body>
+</html>
